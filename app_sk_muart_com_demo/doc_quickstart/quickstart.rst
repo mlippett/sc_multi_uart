@@ -1,7 +1,7 @@
 Multiuart Com Demo: Quick Start Guide
 --------------------------------------------------
 
-We use the XA-SK-UART8 Multi UART Slice Card together with the xSOFTip multi UART software to create a UART, and send data to and from a PC COM port. This application showcases some of the software key features and serves as an example on how to use its API. This demo features UART reconfiguration for various standard baud rates, receives bulk data via file uploads, and perform integrity checks on data before sending it back to COM port.
+We use the XA-SK-UART8 Multi UART Slice Card together with the xSOFTip multi UART software to create a UART, and send data to and from a PC COM port. This application showcases some of the software key features and serves as an example on how to use its API. This demo features UART reconfiguration for various standard baud rates, receives bulk data via file uploads, and performs integrity checks on data before sending it back to the host COM port.
 
 Install Demon Tools on the Host PC
 +++++++++++++++++++++++++++++++++++
@@ -27,9 +27,9 @@ Setting Up The Multi Uart Slice Card
 
    Setting up the Loopback Jumpers
 
-The demo shows the transfer of characters accross all 8 uarts by looping them all back. Data will be received (RX) from the host computer on Uart 0 (pins 0 and 1 of the header on the Slice Card), transmitted through the remaining 7 uarts and then the result of that is sent back to the host via Uart 0 TX.
+The demo shows the transfer of characters across all 8 uarts by looping them all back. Data will be received (RX) from the host computer on Uart 0 (pins 0 and 1 of the header on the Slice Card), transmitted through the remaining 7 uarts and then the result of that is sent back to the host via Uart 0 TX.
 
-You will need seven 2-pin jumpers, which should be placed on header J4 (the one nearest the DB9 connector) of the Slice Card, on all the rows numbered 1 through 7 on the Slice Card.
+You will need seven 2-pin jumpers, which should be placed on header J4 (the one nearest the DB9 connector) of the Slice Card, on all the rows numbered 1 through 7.
 
 .. list-table::
     :header-rows: 1 
@@ -60,8 +60,8 @@ Setting Up The System
    #. Connect the XTAG-2 to host PC. Note that a USB cable is not provided with the Slicekit starter kit.
    #. Switch on the power supply to the Slicekit Core board.
    #. Connect a null serial cable to DB-9 connector on XA-SK-MUART Slice Card. The cable will need a cross over between the UART RX and TX pins at each end.
-   #. Connect other end of cable to Host DB-9 connector slot. If the Host does not have an DB-9 Connector slot then use USB-UART cable for the demo. We used the BF-810 USB to Uart adapter (See http://www.bafo.com/products_bf-810_S.asp (Part number : BF-810). Any other usb to uart bridge should do just as well.
-   #. Identify the serial (COM) port number provided by the Host or the USB to UART adapter and open a suitable terminal software for the selected serial port (refer to the Hercules or SecureCRT documentation above).
+   #. Connect the other end of cable to Host DB-9 connector slot. If the Host does not have an DB-9 Connector slot then use a USB-UART cable for the demo. We used the BF-810 USB to Uart adapter (See http://www.bafo.com/products_bf-810_S.asp (Part number : BF-810). Any other usb to uart bridge should do just as well.
+   #. Identify the serial (COM) port number provided by the Host or the USB to UART adapter and open suitable terminal software for the selected serial port (refer to the Hercules or SecureCRT documentation above).
    #. Configure the host terminal console program as follows: 115200 baud, 8 bit character length, even parity, 1 stop bit, no hardware flow control. The Transmit End-of-Line character should be set to `CR` (other options presented will probably be `LF` and `CR\LF`).
    #. Connect XA-SK-MUART Slice Card to the XP-SKC-L2 Slicekit Core board. 
    #. Connect the XTAG Adapter to Slicekit Core board, XA-SK-XTAG2 connector(xtag slice) and connect XTAG-2 to the adapter. 
@@ -103,9 +103,9 @@ Demo Application
 
    #. Select and Open the configured terminal client application console
    #. Press any key on console. A user menu will be displayed
-   #. Key in ``e`` to enter echo mode. Type in any character from thekey board and application echoes the key pressed. In order to get back to user menu, press ``Esc`` key.
+   #. Key in ``e`` to enter echo mode. Type in any character from the keyboard and the application will echo the key pressed. In order to get back to user menu, press ``Esc`` key.
    #. Key in ``r`` to enter reconfiguration mode. Key in new baud rate value (select one of the values from 115200, 57600, 38400, 19200, 9600, 4800, 600) followed by CR (Enter) key. The UART will be reconfigured (XDE console will display the value entered). The terminal console should be reopened with the new selected baud rate. Press ``h`` to display user menu.
-   #. Key in ``b`` in order to pipe data trough UART channels 1-7. Type in the Console widow and then press Ctrl+D to send the data through 7 channels and recive it for display. To send a file, select the ``File Send`` option in Console SW (Right click in Hercules) and select the file. Then press CTRL+D from console to send file through channels 1-7 and receive it. Timing information is also displayed. Hardware setup for Pipe option should be as shown in the diagram, loop all the Uart channels(like Channel 7 Shown in the figure) except channel 0. If the connection to any of the channel is disconnected you will not see data received back and a message is displayed on the terminal saying that Muart pipe is broken.However, the timing information is not accurate for very small transfer sizes(characters less than 8).
+   #. Key in ``b`` in order to pipe data trough UART channels 1-7. Type in the Console window and then press Ctrl+D to send the data through 7 channels and receive it for display. To send a file, select the ``File Send`` option in the Console SW (Right click in Hercules) and select the file. Then press CTRL+D from the console to send and receive the file through channels 1-7 (timing information is also displayed). Hardware setup for the Pipe option should be as shown in the diagram, loop all the Uart channels(like Channel 7 Shown in the figure) except channel 0. If the connection to any of the channels is disconnected you will not see data received back and a message is displayed on the terminal saying that the Muart pipe is broken.  Note that information is not accurate for very small transfer sizes(characters less than 8).
    #. Key in ``h`` in order to display user menu. This help is displayed any time during execution by pressing ``Esc`` key followed by ``h`` 
 
 .. figure:: images/help_menu.png
@@ -117,17 +117,17 @@ Demo Application
 Next Steps
 ++++++++++
 
-   #. Refer to the module_multi_uart documentation for implementation details of this application and information on further things to try.:wq!
+   #. Refer to the module_multi_uart documentation for implementation details of this application and information on further things to try.
    #. Evaluate the full Ethernet to Serial (8 Uart) reference product which can be found at https://github.com/xcore/sw_serial_to_ethernet. This is a fully featured reference product including an embedded webserver, multicast configuration via UDP and a host of other features. 
 
 Look at the Code
-................
+~~~~~~~~~~~~~~~~
 
    #. Examine the application code. In xTimeComposer navigate to the ``src`` directory under app_sk_muart_com_demo and double click on the main.xc file within it. The file will open in the central editor window.
    #. This code demostrates about simple Muart demo application and usage of muart component.
 
 More complex Serial Bridging Applications
-.........................................
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This application uses 8 UART channels. Take a look at the Serial to Ethernet Bridging application which uses Muart Component. Have a look at the documentation for that component and how its API differs from the stand alone Uart. 
 
